@@ -1,0 +1,9 @@
+﻿{
+  "DbConnectionSettings": {
+    "Host": "localhost",
+    "Port": 5432,
+    "Database": "appdb",
+    "Username": "postgres",
+    "Password": "MJjhehu38Jwrt"
+  }
+}
