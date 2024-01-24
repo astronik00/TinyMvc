@@ -1,8 +1,7 @@
-﻿using Web.Converters;
-using Web.Models;
-using Web.Repositories.Offers;
+﻿using Data.Entities;
+using Repository.Offers;
 
-namespace Web.Services;
+namespace Service.Services;
 
 /// <summary>
 /// Базовая реализация сервиса для работы с заказами
@@ -11,15 +10,21 @@ namespace Web.Services;
 /// <param name="orderNumGenerator"> Генератор номера заказа </param>
 public sealed class OffersService(IOffersContext offersContext, IOrderNumGenerator orderNumGenerator) : IOffersService
 {
+    public async Task<IEnumerable<OfferEntity>> GetOffers(CancellationToken token)
+    {
+        var offers = await offersContext.GetOffers(token);
+        return offers;
+    }
+
     /// <summary>
     /// Сохранение заказа
     /// </summary>
     /// <param name="offer"> Модель заказа </param>
     /// <param name="token"> Токен отмены </param>
-    public async Task Save(OfferModel offer, CancellationToken token)
+    public async Task Save(OfferEntity offer, CancellationToken token)
     {
-        var offerEntity = offer.ToEntity();
-        offerEntity.OrderNo = await orderNumGenerator.Generate(token);
-        await offersContext.Save(offerEntity, token);
+        offer.OrderNo = await orderNumGenerator.Generate(token);
+        offer.CreateDate = DateTime.Now;
+        await offersContext.Save(offer, token);
     }
 }

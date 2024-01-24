@@ -1,9 +1,10 @@
 ﻿using System.Globalization;
+using Data.Options;
 using Microsoft.EntityFrameworkCore;
-using Web.Options;
-using Web.Repositories;
-using Web.Repositories.Offers;
-using Web.Services;
+using Repository;
+using Repository.Offers;
+using Repository.Utils;
+using Service.Services;
 using Web.Utils;
 
 namespace Web;

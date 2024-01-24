@@ -2,9 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using NpgsqlTypes;
-using Web.Repositories;
 
-namespace Web.Utils;
+namespace Repository.Utils;
 
 /// <summary>
 /// Класс для обращения к последовательностям БД

@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Web.Options;
+namespace Data.Options;
 
 /// <summary>
 /// Представление настроек подключения к PostgreSQL

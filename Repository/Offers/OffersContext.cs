@@ -1,13 +1,21 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Web.Entities;
+﻿using Data.Entities;
+using Microsoft.EntityFrameworkCore;
 
-namespace Web.Repositories.Offers;
+namespace Repository.Offers;
 
 /// <summary>
 /// Репозиторий для работы с БД заказов
 /// </summary>
 public sealed class OffersContext(IDbContextFactory<ApplicationContext> dbContextFactory) : IOffersContext
 {
+    public async Task<IEnumerable<OfferEntity>> GetOffers(CancellationToken token)
+    {
+        await using var dbContext = await dbContextFactory.CreateDbContextAsync(token);
+        return await dbContext.Offers
+            .OrderByDescending(offerEntity => offerEntity.CreateDate)
+            .ToListAsync(token);
+    }
+
     /// <summary>
     /// Сохранение заказа
     /// </summary>

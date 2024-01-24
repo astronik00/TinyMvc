@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Service.Services;
 using Web.Converters;
 using Web.Models;
-using Web.Repositories;
+
 
 namespace Web.Controllers;
 
@@ -15,15 +15,12 @@ public class OffersController(IOffersService offersService) : Controller
     /// <summary>
     /// Возвращает список всех заказов
     /// </summary>
-    /// <param name="ctxFactory"> Контекст данных </param>
     /// <param name="token"> Токен отмены </param>
     /// <returns> Все заказы </returns>
     [HttpGet(""), HttpGet("/offers")]
-    public async Task<IActionResult> GetOffers([FromServices] IDbContextFactory<ApplicationContext> ctxFactory,
-        CancellationToken token)
+    public async Task<IActionResult> GetOffers(CancellationToken token)
     {
-        await using var dbContext = await ctxFactory.CreateDbContextAsync(token);
-        return View("Offers", await dbContext.Offers.Select(x => x.ToModel()).ToListAsync(token));
+        return View("Offers", (await offersService.GetOffers(token)).Select(entity => entity.ToModel()));
     }
 
     /// <summary>
@@ -43,7 +40,7 @@ public class OffersController(IOffersService offersService) : Controller
             return BadRequest();
         }
 
-        await offersService.Save(offer, token);
+        await offersService.Save(offer.ToEntity(), token);
         return RedirectToAction("GetOffers");
     }
 }

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace Web.Entities;
+namespace Data.Entities;
 
 /// <summary>
 /// Отображение для сущности БД
@@ -58,4 +58,10 @@ public class OfferEntity
     /// </summary>
     [Column("recieve_date")]
     public DateTime CargoRecieveDate { get; init; }
+    
+    /// <summary>
+    /// Дата создания заказа
+    /// </summary>
+    [Column("create_date")]
+    public DateTime CreateDate { get; set; }
 }

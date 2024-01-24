@@ -21,7 +21,7 @@ public class DefaultDevelopmentExceptionHandler(ILogger<DefaultDevelopmentExcept
             Type = e.GetType().Name,
             Instance = $"{ctx.Request.Method} {ctx.Request.Path}",
         }, token);
-
+        
         return true;
     }
 }

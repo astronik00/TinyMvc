@@ -1,4 +1,4 @@
-﻿using Web.Entities;
+﻿using Data.Entities;
 using Web.Models;
 
 namespace Web.Converters;
@@ -22,7 +22,8 @@ public static class OfferConverter
         SenderAddress = offerModel.SenderAddress,
         RecieverAddress = offerModel.RecieverAddress,
         Weight = offerModel.Weight,
-        CargoRecieveDate = offerModel.CargoRecieveDate
+        CargoRecieveDate = offerModel.CargoRecieveDate,
+        CreateDate = offerModel.CreateDate
     };
 
     /// <summary>
@@ -39,6 +40,7 @@ public static class OfferConverter
         SenderAddress = offerEntity.SenderAddress,
         RecieverAddress = offerEntity.RecieverAddress,
         Weight = offerEntity.Weight,
-        CargoRecieveDate = offerEntity.CargoRecieveDate
+        CargoRecieveDate = offerEntity.CargoRecieveDate,
+        CreateDate = offerEntity.CreateDate
     };
 }

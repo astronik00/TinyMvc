@@ -54,4 +54,9 @@ public class OfferModel
     /// </summary>
     [Required]
     public DateTime CargoRecieveDate { get; init; }
+    
+    /// <summary>
+    /// Дата создания заказа
+    /// </summary>
+    public DateTime CreateDate { get; init; }
 }
