@@ -6,12 +6,12 @@ namespace Repository.Offers;
 /// <summary>
 /// Репозиторий для работы с БД заказов
 /// </summary>
-public sealed class OffersContext(IDbContextFactory<ApplicationContext> dbContextFactory) : IOffersContext
+public sealed class OffersContext(ApplicationContext applicationContext) : IOffersContext
 {
     public async Task<IEnumerable<OfferEntity>> GetOffers(CancellationToken token)
     {
-        await using var dbContext = await dbContextFactory.CreateDbContextAsync(token);
-        return await dbContext.Offers
+        //await using var dbContext = await dbContextFactory.CreateDbContextAsync(token);
+        return await applicationContext.Offers
             .OrderByDescending(offerEntity => offerEntity.CreateDate)
             .ToListAsync(token);
     }
@@ -23,8 +23,8 @@ public sealed class OffersContext(IDbContextFactory<ApplicationContext> dbContex
     /// <param name="token"> Токен отмены </param>
     public async Task Save(OfferEntity offer, CancellationToken token)
     {
-        await using var dbContext = await dbContextFactory.CreateDbContextAsync(token);
-        await dbContext.Offers.AddAsync(offer, token);
-        await dbContext.SaveChangesAsync(token);
+        //await using var dbContext = await dbContextFactory.CreateDbContextAsync(token);
+        await applicationContext.Offers.AddAsync(offer, token);
+        await applicationContext.SaveChangesAsync(token);
     }
 }

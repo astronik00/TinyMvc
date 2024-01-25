@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Service.Services;
+using Service;
 using Web.Converters;
 using Web.Models;
 

@@ -7,15 +7,8 @@ namespace Data.Entities;
 /// <summary>
 /// Отображение для сущности БД
 /// </summary>
-public class OfferEntity
+public class OfferEntity : BaseEntity
 {
-    /// <summary>
-    /// Идентификатор
-    /// </summary>
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; init; }
-
     /// <summary>
     /// Человекочитаемый номер заказа
     /// </summary>
@@ -58,10 +51,4 @@ public class OfferEntity
     /// </summary>
     [Column("recieve_date")]
     public DateTime CargoRecieveDate { get; init; }
-    
-    /// <summary>
-    /// Дата создания заказа
-    /// </summary>
-    [Column("create_date")]
-    public DateTime CreateDate { get; set; }
 }

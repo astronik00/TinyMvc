@@ -1,6 +1,6 @@
 ﻿using Data.Entities;
 
-namespace Service.Services;
+namespace Service;
 
 /// <summary>
 /// Сервис для работы с заказами

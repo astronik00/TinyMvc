@@ -1,7 +1,7 @@
 ﻿using Data.Entities;
 using Repository.Offers;
 
-namespace Service.Services;
+namespace Service;
 
 /// <summary>
 /// Базовая реализация сервиса для работы с заказами
@@ -10,6 +10,11 @@ namespace Service.Services;
 /// <param name="orderNumGenerator"> Генератор номера заказа </param>
 public sealed class OffersService(IOffersContext offersContext, IOrderNumGenerator orderNumGenerator) : IOffersService
 {
+    /// <summary>
+    /// Получение списка всех заказов, отсортированных по дате создания по убыванию
+    /// </summary>
+    /// <param name="token"></param>
+    /// <returns> Коллекция заказов </returns>
     public async Task<IEnumerable<OfferEntity>> GetOffers(CancellationToken token)
     {
         var offers = await offersContext.GetOffers(token);
@@ -25,6 +30,7 @@ public sealed class OffersService(IOffersContext offersContext, IOrderNumGenerat
     {
         offer.OrderNo = await orderNumGenerator.Generate(token);
         offer.CreateDate = DateTime.Now;
+        offer.ModifyDate = DateTime.Now;
         await offersContext.Save(offer, token);
     }
 }

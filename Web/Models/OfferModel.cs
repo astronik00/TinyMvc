@@ -59,4 +59,9 @@ public class OfferModel
     /// Дата создания заказа
     /// </summary>
     public DateTime CreateDate { get; init; }
+    
+    /// <summary>
+    /// Дата модификации заказа
+    /// </summary>
+    public DateTime ModifyDate { get; init; }
 }

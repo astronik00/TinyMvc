@@ -1,5 +1,7 @@
 ﻿using Data.Entities;
+using Data.Options;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace Repository;
 
@@ -8,10 +10,13 @@ namespace Repository;
 /// </summary>
 public sealed class ApplicationContext : DbContext
 {
+    private readonly DbConnectionOptions _options;
+    
     public DbSet<OfferEntity> Offers { get; set; }
 
-    public ApplicationContext(DbContextOptions<ApplicationContext> dbConnectionOptions) : base(dbConnectionOptions)
+    public ApplicationContext(DbConnectionOptions dbConnectionOptions)
     {
+        _options = dbConnectionOptions;
         Database.EnsureCreated();
     }
 
@@ -26,5 +31,16 @@ public sealed class ApplicationContext : DbContext
         modelBuilder.Entity<OfferEntity>()
             .HasIndex(offerEntity => offerEntity.CreateDate)
             .IsDescending(true);
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
+        
+        optionsBuilder.UseNpgsql($"Host={_options.Host};" +
+                                 $"Port={_options.Port};" +
+                                 $"Database={_options.Database};" +
+                                 $"Username={_options.Username};" +
+                                 $"Password={_options.Password}");
     }
 }

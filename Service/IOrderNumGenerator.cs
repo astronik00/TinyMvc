@@ -1,4 +1,4 @@
-﻿namespace Service.Services;
+﻿namespace Service;
 
 /// <summary>
 /// Генератор номера заказа

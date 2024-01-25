@@ -23,7 +23,8 @@ public static class OfferConverter
         RecieverAddress = offerModel.RecieverAddress,
         Weight = offerModel.Weight,
         CargoRecieveDate = offerModel.CargoRecieveDate,
-        CreateDate = offerModel.CreateDate
+        CreateDate = offerModel.CreateDate,
+        ModifyDate = offerModel.ModifyDate
     };
 
     /// <summary>
@@ -41,6 +42,7 @@ public static class OfferConverter
         RecieverAddress = offerEntity.RecieverAddress,
         Weight = offerEntity.Weight,
         CargoRecieveDate = offerEntity.CargoRecieveDate,
-        CreateDate = offerEntity.CreateDate
+        CreateDate = offerEntity.CreateDate,
+        ModifyDate = offerEntity.ModifyDate
     };
 }

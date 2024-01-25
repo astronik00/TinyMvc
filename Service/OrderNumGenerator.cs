@@ -1,6 +1,6 @@
 ﻿using Repository.Utils;
 
-namespace Service.Services;
+namespace Service;
 
 /// <summary>
 /// Базовая реализация генератора номера заказа

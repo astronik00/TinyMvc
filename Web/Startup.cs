@@ -1,16 +1,16 @@
 ﻿using System.Globalization;
 using Data.Options;
-using Microsoft.EntityFrameworkCore;
 using Repository;
 using Repository.Offers;
 using Repository.Utils;
-using Service.Services;
+using Service;
 using Web.Utils;
 
 namespace Web;
 
 public class Startup(IConfiguration configuration, IWebHostEnvironment env)
 {
+    
     public void ConfigureServices(IServiceCollection services)
     {
         var cultureInfo = new CultureInfo("ru-RU");
@@ -23,20 +23,8 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment env)
         AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
 
         services.AddControllersWithViews(options => options.EnableEndpointRouting = false);
-        services.AddDbContextFactory<ApplicationContext>(config =>
-        {
-            var options = configuration.GetSection("DbConnectionSettings").Get<DbConnectionOptions>();
-            config.UseNpgsql($"Host={options.Host};" +
-                             $"Port={options.Port};" +
-                             $"Database={options.Database};" +
-                             $"Username={options.Username};" +
-                             $"Password={options.Password}");
-        });
 
-        services.AddTransient<IOffersContext, OffersContext>();
-        services.AddTransient<IOffersService, OffersService>();
-        services.AddTransient<IOrderNumGenerator, OrderNumGenerator>();
-        services.AddTransient<SequencesHelper>();
+        services.AddOffersDomain(configuration);
 
         if (env.IsDevelopment())
             services.AddExceptionHandler<DefaultDevelopmentExceptionHandler>();
