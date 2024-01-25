@@ -18,6 +18,13 @@ public sealed class ApplicationContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        modelBuilder.HasSequence("seq_order_num_2024").StartsAt(1).HasMin(1);
+        
+        modelBuilder.HasSequence("seq_order_num_2024")
+                    .StartsAt(1)
+                    .HasMin(1);
+        
+        modelBuilder.Entity<OfferEntity>()
+                    .HasIndex(offerEntity => offerEntity.CreateDate)
+                    .IsDescending(true);
     }
 }
